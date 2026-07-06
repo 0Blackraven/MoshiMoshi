@@ -1,28 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Button from "./button";
 import { StepBack } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
 
     const [currentIndex, setCurrentIndex] = useState(1);
     const [hasClicked, setHasClicked] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loadedVideos, setLoadedVideos] = useState(0);
 
     const totalVideos = 4;
-    const nextVideoRef = useRef(null);
+    const nextVideoRef = useRef<HTMLVideoElement|null>(null);
+    const miniVideoRef = useRef<HTMLVideoElement|null>(null);
     const upcomingVideo = (currentIndex % totalVideos) + 1;
-
-    // useEffect(() => {
-    //     if(loadedVideos === totalVideos-1){
-    //         setIsLoading(false);
-    //     }
-    // },[loadedVideos])
 
     useGSAP(() => {
         if (hasClicked) {
@@ -36,7 +29,7 @@ const Hero = () => {
                 height: '100%',
                 duration: 1,
                 ease: 'power1.inOut',
-                onStart: () => nextVideoRef.current.play(),
+                onStart: () => nextVideoRef.current?.play(),
             })
             gsap.from('#current-video', {
                 transformOrigin: 'center center',
@@ -73,7 +66,13 @@ const Hero = () => {
     }
 
     const handleVideoLoad = () => {
-        setLoadedVideos((prev) => (prev) + 1);
+        setLoadedVideos((prev) => {
+            const nextLoaded = prev + 1;
+            if (nextLoaded >= 2) {
+                setIsLoading(false);
+            }
+            return nextLoaded;
+        });
     }
 
     const getHeroVideoSrc = (index: number) => `videos/hero-${index}.mp4`
@@ -95,7 +94,7 @@ const Hero = () => {
                         <div onClick={handleVideoChangeClick} className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-80">
                             <video
                                 src={getHeroVideoSrc(upcomingVideo)}
-                                ref={nextVideoRef}
+                                ref={miniVideoRef}
                                 muted
                                 loop
                                 id="current-video"
@@ -121,23 +120,23 @@ const Hero = () => {
                         onLoadedData={handleVideoLoad}
                     />
                 </div>
-                <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
+                <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75 select-none">
                     G<b>A</b>MING
                 </h1>
 
                 <div className="absolute left-0 top-0 z-40 size-full">
                     <div className="mt-24 px-5 sm:px-10">
-                        <h1 className="special-font hero-heading text-blue-100">
+                        <h1 className="special-font hero-heading text-blue-100 select-none">
                             redefi<b>n</b>e
                         </h1>
-                        <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
+                        <p className="mb-5 max-w-64 font-robert-regular text-blue-100 select-none">
                             Enter the Metagame Layer <br /> Unleash the Beast
                         </p>
                         <Button id={"watch trailer"} title="Watch Trailer" leftIcon={<StepBack className="rotate-180 fill-black" />} parentClass={" bg-yellow-300 flex-center gap-3"} />
                     </div>
                 </div>
             </div>
-            <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
+            <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black select-none">
                 G<b>A</b>MING
             </h1>
         </div>
