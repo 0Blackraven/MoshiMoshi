@@ -65,7 +65,7 @@ body {
 }
 
 @utility floating-nav {
-  @apply bg-black rounded-lg border;
+  @apply bg-[#00000050] rounded-lg border backdrop-blur-xl mt-2;
 }
 
 @utility absolute-center {
@@ -162,11 +162,11 @@ body {
 }
 
 @utility indicator-line {
-  @apply h-1 w-px rounded-full bg-white transition-all duration-200 ease-in-out;
+  @apply h-2 w-[3px] rounded-full bg-white transition-all duration-400 ease-in-out;
 
   &.active {
     animation: indicator-line 0.5s ease infinite;
-    animation-delay: calc(var(--animation-order) * 0.1s);
+    animation-delay: calc(var(--animation-order) * 0.3s);
   }
 }
 
