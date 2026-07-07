@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import Hero from "./components/custom/hero";
 import About from "./components/custom/about";
 import NavBar from "./components/custom/navBar";
+import Features from "./components/custom/features";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -13,6 +14,7 @@ export function App() {
       <NavBar/>
       <Hero/>
       <About/>
+      <Features/>
     </main>
   );
 }

@@ -99,9 +99,9 @@ const NavBar = () => {
                                         style={{ animationDelay: `${bar * 0.2}s` }}
                                     />
                                 )) :
-                                <button>
+                                <div>
                                     <Volume2 className="stroke-white stroke-2" />
-                                </button>
+                                </div>
                             }
                         </button>
                     </div>
