@@ -9,12 +9,11 @@ const Hero = () => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [hasClicked, setHasClicked] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [loadedVideos, setLoadedVideos] = useState(0);
+    const videosLoadedRef = useRef<number>(0);
 
     const totalVideos = 4;
-    const nextVideoRef = useRef<HTMLVideoElement|null>(null);
-    const miniVideoRef = useRef<HTMLVideoElement|null>(null);
+    const nextVideoRef = useRef<HTMLVideoElement | null>(null);
+    const miniVideoRef = useRef<HTMLVideoElement | null>(null);
     const upcomingVideo = (currentIndex % totalVideos) + 1;
 
     useGSAP(() => {
@@ -66,13 +65,11 @@ const Hero = () => {
     }
 
     const handleVideoLoad = () => {
-        setLoadedVideos((prev) => {
-            const nextLoaded = prev + 1;
-            if (nextLoaded >= 2) {
-                setIsLoading(false);
-            }
-            return nextLoaded;
-        });
+        videosLoadedRef.current += 1;
+
+        if (videosLoadedRef.current >= 2) {
+            setIsLoading(false);
+        }
     }
 
     const getHeroVideoSrc = (index: number) => `videos/hero-${index}.mp4`
