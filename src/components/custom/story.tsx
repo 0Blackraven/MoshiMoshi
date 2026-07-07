@@ -45,7 +45,7 @@ const Story = () => {
     }
 
     return (
-        <section className="min-h-dvh w-screen bg-black text-blue-50" id="story">
+        <section className="min-h-dvh w-screen bg-black text-blue-50" id="prologue">
             <div className="flex size-full flex-col items-center py-10 pb-24">
                 <p className="font-general uppercase text-sm md:text-[10px]">
                     the multiversal ip world

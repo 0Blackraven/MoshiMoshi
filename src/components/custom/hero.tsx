@@ -78,7 +78,7 @@ const Hero = () => {
     const getHeroVideoSrc = (index: number) => `videos/hero-${index}.mp4`
 
     return (
-        <div className='h-dvh w-screen overflow-x-hidden relative'>
+        <div className='h-dvh w-screen overflow-x-hidden relative' id="nexus">
             {isLoading && (
                 <div className="flex-center absolute-center z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
                     <div className="three-body">
