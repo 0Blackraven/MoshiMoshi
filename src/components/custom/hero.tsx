@@ -4,6 +4,8 @@ import { StepBack } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
+
+
 const Hero = () => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [hasClicked, setHasClicked] = useState(false);
@@ -27,6 +29,24 @@ const Hero = () => {
 
     const { contextSafe } = useGSAP({ scope: containerRef });
 
+    useGSAP(() => {
+        gsap.set("#video-frame", {
+            clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+            borderRadius: "0% 0% 40% 10%",
+        });
+        gsap.from("#video-frame", {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            borderRadius: "0% 0% 0% 0%",
+            ease: "power1.inOut",
+            scrollTrigger: {
+                trigger: "#video-frame",
+                start: "center center",
+                end: "bottom center",
+                scrub: true,
+            },
+        });
+    }, { scope: containerRef });
+
     const handleVideoChangeClick = useCallback(() => {
         contextSafe(() => {
             if (hasClicked) return;
@@ -49,12 +69,14 @@ const Hero = () => {
                     setCurrentIndex(upcomingVideo);
                     setHasClicked(false);
 
-                    gsap.set('#next-video', {
-                        visibility: 'hidden',
-                        scale: 0.5,
-                        width: 'auto',
-                        height: 'auto'
-                    });
+                    setTimeout(() => {
+                        gsap.set('#next-video', {
+                            visibility: 'hidden',
+                            scale: 0.5,
+                            width: 'auto',
+                            height: 'auto'
+                        });
+                    },50);
                 }
             });
 
